@@ -1,0 +1,7 @@
+const Discord = require("discord.js");
+const config = require("./config.json");
+
+const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES"]});
+
+client.login(config.OTczMjg1NTU0ODE0ODUzMTUx.GEvlRd.Ct_c3YXUm76He_HPQKISmthmHuB0Pms4jFuZaA
+
