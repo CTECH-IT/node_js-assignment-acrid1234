@@ -69,14 +69,16 @@ client.on("messageCreate", message => {
         message.channel.send("Sorry, we don't serve substances here! Try again never!")
     }
 
-    if (command === 'play') {
-        client.commands.get('play').execute(message, args);
-    }
+    //if (command === 'play') {
+    //    client.commands.get('play').execute(message, args);
+    //}
 
-    if (command === 'leave') {
-        client.commands.get('leave').execute(message, args);
+    //if (command === 'leave') {
+    //    client.commands.get('leave').execute(message, args);
+    //}
 
-
+    if (command === 'image') {
+        client.commands.get('image').execute(message, args);
     }
 });
 
