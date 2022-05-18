@@ -1,11 +1,15 @@
 const Discord = require("discord.js");
 const config = require("./config.json");
 
-const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]});
+
+const client = new Discord.Client({intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]});
 
 const prefix = "$";
 
 const fs = require('fs');
+
+const TempChannels = require("discord-temp-channels");
+const tempChannels = new TempChannels(client);
 
 
 client.commands = new Discord.Collection();
@@ -19,7 +23,7 @@ for(const file of commandFiles){
 }
 
 client.on('ready', () => {
-    console.log("Bot is onlne")
+    console.log("Bot is online")
 
     client.user.setActivity(`Party party party! Time to party!`,  { type: "PLAYING"})
 })
@@ -79,6 +83,26 @@ client.on("messageCreate", message => {
 
     if (command === 'image') {
         client.commands.get('image').execute(message, args);
+    }
+
+    if (command === 'createparty') {
+        tempChannels.registerChannel("976158126271250492", {
+            childCategory: "973284127484813347",
+            childAutoDeleteIfEmpty: true,
+            childAutoDeleteIfOwnerLeaves: true,
+            childMaxUsers: 5,
+            childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
+        });
+        message.guild.channels.create('new party', {
+            type: 'GUILD_VOICE',
+            permissionOverwrites: [
+                {
+                    id: message.author.id,
+                }
+            ]
+        })
+        message.channel.send("You've succesfully created a party!");
+
     }
 });
 
